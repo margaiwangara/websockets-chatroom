@@ -1,0 +1,36 @@
+{
+  "name": "websockets-chatroom",
+  "version": "1.0.0",
+  "description": "Simple chatroom application with Websockets",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/margaiwangara/websockets-chatroom.git"
+  },
+  "keywords": [
+    "websockets",
+    "chatroom",
+    "chatapp"
+  ],
+  "author": "Margai Wangara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/margaiwangara/websockets-chatroom/issues"
+  },
+  "homepage": "https://github.com/margaiwangara/websockets-chatroom#readme",
+  "dependencies": {
+    "connect-redis": "^4.0.3",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.8.7",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
