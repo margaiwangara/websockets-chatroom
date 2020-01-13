@@ -1,23 +1,20 @@
 const express = require("express");
-
-// Websocket
-var WebSocketServer = require("ws").Server;
-var wss = new WebSocketServer({ port: 40510 });
-wss.on("connection", function(ws) {
-  ws.on("message", function(message) {
-    console.log(`Message ${message}`);
-  });
-  setInterval(() => ws.send("Sending Data", error => console.log(error)), 1000);
-});
+const dotenv = require("dotenv");
 
 // init express
 const app = express();
+
+// dotenv config
+dotenv.config({ path: "./config/config.env" });
 
 // view engine
 app.set("view engine", "ejs");
 // middleware
 app.use(express.json());
 app.use(express.static("public"));
+
+// mongodb
+const db = require("./models");
 
 // routes
 app.get("/", function(req, res) {
@@ -27,4 +24,6 @@ app.get("/", function(req, res) {
 // port
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+);
