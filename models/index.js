@@ -9,7 +9,10 @@ mongoose
   .connect(process.env.MONGO_URI, {
     useFindAndModify: false,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
   })
   .then(conn => console.log(`MongoDB Connected: ${conn.connection.host}`))
   .catch(error => console.log(error));
+
+module.exports.Message = require("./Message");
