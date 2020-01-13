@@ -17,8 +17,10 @@ app.use(express.static("public"));
 const db = require("./models");
 
 // routes
-app.get("/", function(req, res) {
-  res.render("home", { title: "Homepage" });
+app.get("/auth/google", function(req, res) {});
+
+app.get("/home", function(req, res) {
+  res.send("Homepage");
 });
 
 // port
