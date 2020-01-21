@@ -4,15 +4,9 @@ import path from "path";
 
 // Inits
 const app = express();
-dotenv.config({ path: path.resolve(__dirname, "../config/.env") });
+dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
 // Routes
-app.get(
-  "/",
-  (req: Request, res: Response): Response => {
-    return res.send("Hello World");
-  }
-);
 
 const PORT = process.env.PORT || 5000;
 
