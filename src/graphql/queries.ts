@@ -1,4 +1,4 @@
-import { User, IUserModel } from "../models";
+import { User, IUserModel, Chat } from "../models";
 import {
   GraphQLString,
   GraphQLObjectType,
@@ -35,6 +35,38 @@ const UserType: GraphQLObjectType = new GraphQLObjectType({
   })
 });
 
+const ChatType: GraphQLObjectType = new GraphQLObjectType({
+  name: "ChatType",
+  fields: () => ({
+    id: { type: GraphQLString },
+    message: { type: GraphQLString },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        console.log(parent);
+        return User.findById({ _id: parent.user }).then(result => result);
+      }
+    },
+    createdAt: {
+      type: new GraphQLScalarType({
+        name: "ChatDate",
+        description: "Date when the chat was added",
+        parseValue(value) {
+          return new Date(value);
+        },
+        serialize(value) {
+          return value;
+        },
+        parseLiteral(ast) {
+          if (ast.kind == Kind.INT) {
+            return parseInt(ast.kind, 10);
+          }
+          return null;
+        }
+      })
+    }
+  })
+});
 const RootQuery: GraphQLObjectType = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
@@ -50,7 +82,22 @@ const RootQuery: GraphQLObjectType = new GraphQLObjectType({
         userId: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        return User.findById(args.userId).then(data => data);
+        return User.findById(args.userId).then(result => result);
+      }
+    },
+    chats: {
+      type: new GraphQLList(ChatType),
+      resolve(parent, args) {
+        return Chat.find().then(result => result);
+      }
+    },
+    chat: {
+      type: ChatType,
+      args: {
+        chatId: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parent, args) {
+        return Chat.findById(args.chatId).then(result => result);
       }
     }
   }
@@ -91,6 +138,41 @@ const MutationQuery: GraphQLObjectType = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return User.findByIdAndDelete(args.userId).then(() => ({
+          success: true
+        }));
+      }
+    },
+    createChat: {
+      type: ChatType,
+      args: {
+        message: { type: new GraphQLNonNull(GraphQLString) },
+        user: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parent, args) {
+        return Chat.create(args).then(result => result);
+      }
+    },
+    updateChat: {
+      type: ChatType,
+      args: {
+        chatId: { type: new GraphQLNonNull(GraphQLString) },
+        message: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Chat.findByIdAndUpdate(
+          args.chatId,
+          { message: args.message },
+          { new: true }
+        ).then(result => result);
+      }
+    },
+    deleteChat: {
+      type: ChatType,
+      args: {
+        chatId: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parent, args) {
+        return Chat.findByIdAndDelete(args.chatId).then(() => ({
           success: true
         }));
       }

@@ -1,16 +1,23 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Application } from "express";
+import graphqlHTTP from "express-graphql";
 import dotenv from "dotenv";
 import path from "path";
 
 // Inits
-const app = express();
+const app: Application = express();
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
 // Routes
-import userRoutes from "./routes/users";
-app.use("", userRoutes);
+import schema from "./graphql/queries";
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    graphiql: true,
+    schema
+  })
+);
 
-const PORT = process.env.PORT || 5000;
+const PORT: number = 5000 || process.env.PORT;
 
 app.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
