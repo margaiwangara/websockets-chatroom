@@ -7,6 +7,11 @@ import path from "path";
 const app: Application = express();
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
+// static and templates
+app.set("view engine", "ejs");
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
 // Routes
 import schema from "./graphql/queries";
 app.use(
@@ -17,7 +22,7 @@ app.use(
   })
 );
 
-const PORT: number = 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)

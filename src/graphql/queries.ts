@@ -1,4 +1,4 @@
-import { User, IUserModel, Chat } from "../models";
+import { User, Chat } from "../models";
 import {
   GraphQLString,
   GraphQLObjectType,
