@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, NextFunction, Request, Response } from "express";
 import graphqlHTTP from "express-graphql";
 import dotenv from "dotenv";
 import path from "path";
@@ -14,12 +14,17 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 import schema from "./graphql/queries";
-app.use(
-  "/graphql",
-  graphqlHTTP({
-    graphiql: true,
-    schema
-  })
+const graphqlOptions = { graphiql: true, schema };
+app.use("/graphql", graphqlHTTP(graphqlOptions));
+app.get(
+  "/",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      return res.render("index");
+    } catch (error) {
+      next(error);
+    }
+  }
 );
 
 const PORT = process.env.PORT || 5000;
