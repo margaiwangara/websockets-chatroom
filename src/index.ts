@@ -1,14 +1,20 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import path from "path";
 
-// express init
+// Inits
 const app = express();
-
-// dotenv init
 dotenv.config({ path: path.resolve(__dirname, "../config/.env") });
 
-const PORT: number = 5000 || process.env.PORT;
+// Routes
+app.get(
+  "/",
+  (req: Request, res: Response): Response => {
+    return res.send("Hello World");
+  }
+);
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
