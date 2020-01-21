@@ -1,20 +1,23 @@
 import mongoose from "mongoose";
-import User from "./User";
-import Chat from "./Chat";
+
+// models
+import { User } from "./User";
+import { Chat } from "./Chat";
 
 // Init
 const debug: boolean = process.env.NODE_ENV == "development" ? true : false;
+const uri: string =
+  process.env.MONGO_URI || "mongodb://localhost:27017/express_websockets";
 
 mongoose.set("debug", debug);
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(uri, {
     useFindAndModify: false,
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(conn => console.log(`MongoDB Connected`, conn))
+  .then(() => console.log(`MongoDB Connected`))
   .catch(error => console.log(error));
 
-module.exports.User = User;
-module.exports.Chat = Chat;
+export { User, Chat };

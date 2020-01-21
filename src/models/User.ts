@@ -5,6 +5,8 @@ interface IUserModel extends Document {
   email?: string;
   name?: string;
   password?: string;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 const userSchema: Schema = new Schema({
@@ -20,6 +22,8 @@ const userSchema: Schema = new Schema({
   }
 });
 
-const User: Model<IUserModel> = model<IUserModel>("User", userSchema);
-
-export default User;
+export const User: Model<IUserModel> = model<IUserModel>(
+  "User",
+  userSchema,
+  "users"
+);
