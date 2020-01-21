@@ -22,4 +22,4 @@ const userSchema: Schema = new Schema({
 
 const User: Model<IUserModel> = model<IUserModel>("User", userSchema);
 
-module.exports = User;
+export default User;

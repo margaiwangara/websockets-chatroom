@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import User from "./User";
+import Chat from "./Chat";
 
 // Init
 const debug: boolean = process.env.NODE_ENV == "development" ? true : false;
@@ -13,3 +15,6 @@ mongoose
   })
   .then(conn => console.log(`MongoDB Connected`, conn))
   .catch(error => console.log(error));
+
+module.exports.User = User;
+module.exports.Chat = Chat;
