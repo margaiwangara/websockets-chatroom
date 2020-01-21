@@ -16,3 +16,4 @@ mongoose
   .catch(error => console.log(error));
 
 module.exports.Message = require("./Message");
+module.exports.User = require("./User");
