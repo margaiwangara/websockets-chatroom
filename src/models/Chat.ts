@@ -1,6 +1,6 @@
 import { Document, model, Model, Schema } from "mongoose";
 
-interface IChatModel extends Document {
+export interface IChatModel extends Document {
   message: string;
   createdAt: Date;
   updatedAt: Date;

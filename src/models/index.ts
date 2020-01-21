@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 // models
-import { User } from "./User";
-import { Chat } from "./Chat";
+import { User, IUserModel } from "./User";
+import { Chat, IChatModel } from "./Chat";
 
 // Init
 const debug: boolean = process.env.NODE_ENV == "development" ? true : false;
@@ -20,4 +20,4 @@ mongoose
   .then(() => console.log(`MongoDB Connected`))
   .catch(error => console.log(error));
 
-export { User, Chat };
+export { User, IUserModel, Chat, IChatModel };

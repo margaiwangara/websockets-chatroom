@@ -6,12 +6,6 @@ import path from "path";
 const app = express();
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
-// Routes
-import { User } from "./models";
-User.find()
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
-
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>
