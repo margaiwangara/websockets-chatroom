@@ -3,14 +3,16 @@ import {
   GraphQLString,
   GraphQLObjectType,
   GraphQLNonNull,
-  GraphQLSchema
+  GraphQLSchema,
+  GraphQLList
 } from "graphql";
 
 const UserType: GraphQLObjectType = new GraphQLObjectType({
   name: "UserQuery",
   fields: () => ({
-    username: { type: new GraphQLNonNull(GraphQLString) },
-    createdAt: { type: new GraphQLNonNull(GraphQLString) }
+    id: { type: GraphQLString },
+    username: { type: GraphQLString },
+    createdAt: { type: GraphQLString }
   })
 });
 
@@ -18,7 +20,7 @@ const RootQuery: GraphQLObjectType = new GraphQLObjectType({
   name: "RootQuery",
   fields: {
     getUsers: {
-      type: UserType,
+      type: new GraphQLList(UserType),
       resolve(parent, args) {
         return User.find().then(data => data);
       }
