@@ -2,3 +2,4 @@ node_modules/
 config/*.env
 environment.d.ts
 build/
+yarn-error.log

@@ -1,16 +1,23 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import graphqlHTTP from "express-graphql";
-import dotenv from "dotenv";
-import path from "path";
+import * as dotenv from "dotenv";
+import * as path from "path";
 import schema from "./graphql/queries";
+import * as socketio from 'socket.io';
+import http = require('http');
+
 // Inits
 const app: Application = express();
+http.createServer(app);
+
+// dotenv config
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
 // static and templates
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
 
 // Routes
 const graphqlOptions = { graphiql: true, schema };
