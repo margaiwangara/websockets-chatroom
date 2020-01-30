@@ -2,7 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import graphqlHTTP from "express-graphql";
 import dotenv from "dotenv";
 import path from "path";
-
+import schema from "./graphql/queries";
 // Inits
 const app: Application = express();
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
@@ -13,7 +13,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-import schema from "./graphql/queries";
 const graphqlOptions = { graphiql: true, schema };
 app.use("/graphql", graphqlHTTP(graphqlOptions));
 app.get(
