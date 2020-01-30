@@ -16,11 +16,12 @@ dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
 const hbs: Exphbs = exphbs.create({
   partialsDir: 'view/partials',
-  layoutsDir: 'views/layouts'
+  layoutsDir: 'views/layouts',
+  extname: '.hbs'
 });
 
 // static and templates
-app.engine('handlebars', hbs.engine);
+app.engine('hbs', hbs.engine);
 app.set("view engine", "handlebars");
 app.set('views', path.resolve(__dirname, '../views'));
 app.use(express.json());
