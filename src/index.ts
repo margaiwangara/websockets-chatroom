@@ -15,7 +15,8 @@ const server: http.Server = http.createServer(app);
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
 
 const hbs: Exphbs = exphbs.create({
-  partialsDir: ['views/partials', 'views/layout'],
+  partialsDir: 'view/partials',
+  layoutsDir: 'views/layouts'
 });
 
 // static and templates
@@ -33,7 +34,7 @@ app.get(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return res.render("index");
+      return res.render("home", { title: 'Home' });
     } catch (error) {
       next(error);
     }
