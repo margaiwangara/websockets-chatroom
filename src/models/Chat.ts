@@ -1,10 +1,5 @@
-import { Document, model, Model, Schema } from "mongoose";
-
-export interface IChatModel extends Document {
-  message: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { model, Model, Schema } from "mongoose";
+import { IChatModel } from '../interfaces/model';
 
 const chatSchema: Schema = new Schema({
   message: {
@@ -21,8 +16,10 @@ const chatSchema: Schema = new Schema({
   }
 });
 
-export const Chat: Model<IChatModel> = model<IChatModel>(
+const Chat: Model<IChatModel> = model<IChatModel>(
   "Chat",
   chatSchema,
   "chats"
 );
+
+export default Chat;

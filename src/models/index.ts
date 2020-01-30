@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 // models
-import { User, IUserModel } from "./User";
-import { Chat, IChatModel } from "./Chat";
+import User from "./User";
+import Chat from "./Chat";
 
 // Init
 const debug: boolean = process.env.NODE_ENV == "development" ? true : false;
@@ -17,7 +17,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => console.log(`MongoDB Connected`))
+  .then((conn) => console.log(`MongoDB Connected: ${(conn.connection as any).host}`))
   .catch(error => console.log(error));
 
-export { User, IUserModel, Chat, IChatModel };
+export { User, Chat };
