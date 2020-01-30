@@ -4,11 +4,11 @@ import * as dotenv from "dotenv";
 import * as path from "path";
 import schema from "./graphql/queries";
 import * as socketio from 'socket.io';
-import http = require('http');
+import * as http from 'http';
 
 // Inits
 const app: Application = express();
-http.createServer(app);
+const server: http.Server = http.createServer(app);
 
 // dotenv config
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
@@ -33,8 +33,8 @@ app.get(
   }
 );
 
-const PORT: number = parseInt(`${process.env.PORT}`) || 5000;
+const PORT: number = parseInt(`${process.env.PORT}`, 10) || 5000;
 
-app.listen(PORT, () =>
+server.listen(PORT, () =>
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
