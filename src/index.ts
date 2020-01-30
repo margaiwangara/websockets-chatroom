@@ -22,7 +22,7 @@ const hbs: Exphbs = exphbs.create({
 
 // static and templates
 app.engine('hbs', hbs.engine);
-app.set("view engine", "handlebars");
+app.set("view engine", "hbs");
 app.set('views', path.resolve(__dirname, '../views'));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../public")));
