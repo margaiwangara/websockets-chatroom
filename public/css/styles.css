@@ -1,0 +1,14 @@
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.chat-box {
+  height: 90vh;
+  background-color: whitesmoke;
+  border-radius: 10px;
+}
+
+.chat-area {
+  height: 95%;
+}
