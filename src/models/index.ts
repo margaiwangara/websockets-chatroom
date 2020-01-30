@@ -6,8 +6,7 @@ import Chat from "./Chat";
 
 // Init
 const debug: boolean = process.env.NODE_ENV == "development" ? true : false;
-const uri: string =
-  process.env.MONGO_URI || "mongodb://localhost:27017/express_websockets";
+const uri: string = `${process.env.MONGO_URI}`;
 
 mongoose.set("debug", debug);
 mongoose
@@ -17,7 +16,9 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then((conn) => console.log(`MongoDB Connected: ${(conn.connection as any).host}`))
+  .then(conn =>
+    console.log(`MongoDB Connected: ${(conn.connection as any).host}`)
+  )
   .catch(error => console.log(error));
 
 export { User, Chat };
