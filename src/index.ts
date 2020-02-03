@@ -3,13 +3,14 @@ import graphqlHTTP from "express-graphql";
 import * as dotenv from "dotenv";
 import * as path from "path";
 import schema from "./graphql/queries";
-import * as socketio from 'socket.io';
+import socketio from 'socket.io';
 import * as exphbs from 'express-handlebars';
 import * as http from 'http';
 
 // Inits
 const app: Application = express();
 const server: http.Server = http.createServer(app);
+const io = socketio(server);
 
 // dotenv config
 dotenv.config({ path: path.resolve(__dirname, "../config/config.env") });
@@ -28,6 +29,11 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../public")));
 app.use(express.urlencoded({ extended: false }));
 
+// Socket IO @TODO: Split to different file
+io.on('connection', function(socket){
+  console.log('User connected');
+});
+
 // Routes
 const graphqlOptions = { graphiql: true, schema };
 app.use("/graphql", graphqlHTTP(graphqlOptions));
@@ -41,6 +47,8 @@ app.get(
     }
   }
 );
+
+
 
 const PORT: number = parseInt(`${process.env.PORT}`, 10) || 5000;
 

@@ -11,4 +11,7 @@ function handleMessageSubmit(e){
   
 }
 
+// Socket.io Client
+var socket = io();
+
 messageInput.addEventListener('keydown', handleMessageSubmit);
