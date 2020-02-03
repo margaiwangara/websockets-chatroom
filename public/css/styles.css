@@ -1,14 +1,17 @@
 body {
   max-width: 100%;
-  overflow-x: hidden;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
-.chat-box {
-  height: 90vh;
+#home {
+  height: 100vh;
+}
+
+.top span {
+  display: block;
+}
+
+.top span:nth-child(odd) {
   background-color: whitesmoke;
-  border-radius: 10px;
-}
-
-.chat-area {
-  height: 95%;
 }
