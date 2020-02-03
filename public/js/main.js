@@ -19,12 +19,22 @@ function handleMessageSubmit(e){
   
 }
 
-// display chat messages
-socket.on('chat message', function(msg){
-  var el = document.createElement('span');
-  el.innerHTML = msg;
-  messageBox.appendChild(el);
+socket.emit('load messages');
+
+socket.on('load messages', function(msgs){
+  msgs.forEach(function(value){
+    var el = document.createElement('span');
+    el.innerHTML = value;
+    messageBox.appendChild(el);
+  });
 });
+
+// display chat messages
+// socket.on('chat message', function(msg){
+//   var el = document.createElement('span');
+//   el.innerHTML = msg;
+//   messageBox.appendChild(el);
+// });
 
 
 

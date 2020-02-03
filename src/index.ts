@@ -29,15 +29,24 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../public")));
 app.use(express.urlencoded({ extended: false }));
 
+const msgs = [
+  'Hello', 'How are you?', 'Code', 'Programming'
+];
+
 // Socket IO @TODO: Split to different file
 io.on('connection', function(socket){
   console.log('User connected');
 
   // on message send
   socket.on('chat message', function(msg){
+    msgs.push(msg);
     io.emit('chat message', msg);
+    io.emit('load messages', msgs);
   });
 
+  socket.on('load messages', function(){
+    io.emit('load messages', msgs);
+  });
   // on disconnect
   socket.on('disconnect', function(){
     console.log('User disconnected');
