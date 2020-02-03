@@ -32,6 +32,17 @@ app.use(express.urlencoded({ extended: false }));
 // Socket IO @TODO: Split to different file
 io.on('connection', function(socket){
   console.log('User connected');
+
+  // on message send
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+
+  // on disconnect
+  socket.on('disconnect', function(){
+    console.log('User disconnected');
+  });
+
 });
 
 // Routes
