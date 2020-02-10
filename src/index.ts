@@ -3,17 +3,26 @@ import graphqlHTTP from 'express-graphql';
 import socketio from 'socket.io';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import Redis, { Redis as RedisType } from 'ioredis';
+import ConnectRedis, { RedisStore } from 'connect-redis';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import * as exphbs from 'express-handlebars';
 import * as http from 'http';
 import schema from './graphql/queries';
 import connectDB from './models';
+import authRoute from './routes/auth';
+import appRoute from './routes/app';
 
 // Inits
 const app: Application = express();
 const server: http.Server = http.createServer(app);
 const io = socketio(server);
+const RedisStore: RedisStore = ConnectRedis(session);
+const client: RedisType = new Redis({
+  password: process.env.REDIS_PASSWORD,
+});
+const store: RedisStore = new RedisStore({ client });
 
 // dotenv config
 dotenv.config({ path: path.resolve(__dirname, '../config/config.env') });
@@ -37,15 +46,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   session({
+    store,
+    name: 'auth',
     secret: `${process.env.SESSION_SECRET}`,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      sameSite: true,
+      secure: process.env.NODE_ENV === 'production',
+    },
   }),
 );
 
 // Routes
 const graphqlOptions = { graphiql: true, schema };
 app.use('/graphql', graphqlHTTP(graphqlOptions));
+app.use('/', authRoute);
+app.use('/', appRoute);
 
 const PORT: number = parseInt(`${process.env.PORT}`, 10) || 5000;
 

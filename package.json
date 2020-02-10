@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/margaiwangara/websockets-chatroom#readme",
   "dependencies": {
+    "@types/ioredis": "^4.14.7",
+    "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -31,10 +33,12 @@
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
     "graphql": "^14.5.8",
+    "ioredis": "^4.14.1",
     "mongoose": "^5.8.9",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "@types/connect-redis": "^0.0.13",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.2",
     "@types/express-handlebars": "^3.1.0",
