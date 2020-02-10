@@ -50,3 +50,23 @@ export const userLoginPost = asyncHandler(
     return res.redirect('/');
   },
 );
+
+/**
+ * @desc Log Out
+ * @route GET /login
+ * @access Private
+ */
+export const userLogout = function(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  req.session?.destroy(error => {
+    if (error) {
+      return res.redirect('/');
+    }
+    // clear cookie
+    res.clearCookie('auth');
+    return res.redirect('/login');
+  });
+};
