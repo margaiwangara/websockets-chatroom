@@ -46,43 +46,6 @@ app.use(
 // Routes
 const graphqlOptions = { graphiql: true, schema };
 app.use('/graphql', graphqlHTTP(graphqlOptions));
-app.get('/login', function(req: Request, res: Response, next: NextFunction) {
-  if ((req.session as any).username) {
-    return res.redirect('/');
-  }
-
-  return res.render('login', { title: 'Log In' });
-});
-
-app.post('/login', function(req: Request, res: Response, next: NextFunction) {
-  let error: string;
-  let sess: any = req.session;
-  // check if session is set
-  if (sess.username) {
-    res.redirect('/');
-  }
-  // set username into session
-  if (!req.body.username) {
-    error = 'Please input a username';
-    return res.render('login', { title: 'Log In' });
-  }
-
-  (req.session as any).username = req.body.username;
-  res.redirect('/');
-});
-
-app.get('/', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const sess: any = req.session;
-    if (!sess.username) {
-      return res.redirect('/login');
-    }
-
-    return res.render('home', { title: 'Home', username: sess.username });
-  } catch (error) {
-    next(error);
-  }
-});
 
 const PORT: number = parseInt(`${process.env.PORT}`, 10) || 5000;
 
