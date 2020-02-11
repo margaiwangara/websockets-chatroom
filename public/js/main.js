@@ -28,8 +28,19 @@ messageForm.addEventListener('submit', function(e) {
   // else send message
   socket.emit('sent message', { message: message, user: userId });
 
-  socket.on('saved message', function(saved) {
-    console.log(saved);
+  socket.on('saved message', function(payload) {
+    var result = payload.createChat;
+    var chat = {
+      id: result.id,
+      message: result.message
+    };
+    var user = {
+      id: result.user.id,
+      username: result.user.username
+    };
+
+    // display on message board
+    
   });
 
   // clear input

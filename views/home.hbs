@@ -8,16 +8,21 @@
     </section>
     <section class="work-area-center">
       {{#each chats }}
-          <div class="list-tile">
-            <div class="list-tile-top">
-              <h5>{{ ../user.username }}</h5>
+          {{#each this}}
+            <div class="list-tile">
+              <div class="list-tile-top">
+                {{#each user }}
+                    <h5>{{ username }}</h5>
+                {{/each }}
+              </div>
+              <p>{{ message }}</p>
+              <h6>{{ createdAt }}</h6>
             </div>
-          <p>{{ message }}</p>
-            <h6>{{ createdAt }}</h6>
-          </div>
-      {{else }}
-        <p class="feedback">There are no chats to display</p>
+          {{/each }}
       {{/each }}
+        
+        {{!-- <p class="feedback">There are no chats to display</p> --}}
+      
     </section>
     <section class="work-area-bottom">
       <p class="feedback"></p>

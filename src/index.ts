@@ -14,6 +14,7 @@ import connectDB from './models';
 import authRoute from './routes/auth';
 import appRoute from './routes/app';
 import { sendMessage } from './controller/chat';
+import { forElse } from './utils/handlebars';
 
 // Inits
 const app: Application = express();
@@ -35,6 +36,9 @@ const hbs: Exphbs = exphbs.create({
   partialsDir: 'view/partials',
   layoutsDir: 'views/layouts',
   extname: '.hbs',
+  helpers: {
+    forelse: forElse,
+  },
 });
 
 // static and templates
@@ -59,6 +63,8 @@ app.use(
     },
   }),
 );
+
+// hbs helpers
 
 function passSocket(req: Request, res: Response, next: NextFunction) {
   // add io to req
