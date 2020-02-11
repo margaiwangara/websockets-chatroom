@@ -16,10 +16,13 @@
       </div>
     </section>
     <section class="work-area-bottom">
-      <form method="post" autocomplete="off">
-        <input type="text" name="message" id="messageField" placeholder="Type Something..." autocomplete="off">
-        <button type="submit" class="btn">+</button>
+      <form method="post" autocomplete="off" id="message-form">
+        <input type="text" name="message" id="message-input" placeholder="Type Something..." autocomplete="off">
+        <button type="submit" class="btn" id="message-submit">+</button>
       </form>
+      <div class="error">
+        <p>This is an error message</p>
+      </div>
     </section>
   </section>
 </section>
