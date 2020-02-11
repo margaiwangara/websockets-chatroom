@@ -1,9 +1,10 @@
 import { graphql } from 'graphql';
 import schema from '../graphql/queries';
+import asyncHandler from '../utils/asyncHandler';
 
-export const sendMessage = ({ message, user }: string | any) => {
+export const sendMessage = async ({ message, user }: string | any) => {
   const query = `
-  mutation {
+  mutation{
     createChat(message: "${message}", user: "${user}"){
       id
       message
@@ -14,5 +15,11 @@ export const sendMessage = ({ message, user }: string | any) => {
     }
   }
   `;
-  return graphql(schema, query).then(({ data }) => data);
+  try {
+    const response = graphql(schema, query);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };

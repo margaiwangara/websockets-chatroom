@@ -25,7 +25,12 @@ messageForm.addEventListener('submit', function(e) {
   }
 
   // else send message
-  socket.emit('message', { message: message });
+  socket.emit('sent message', { message: message });
+
+  socket.on('saved message', function(saved) {
+    console.log(saved);
+  });
+
   // clear input
   e.target.reset();
 });

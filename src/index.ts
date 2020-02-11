@@ -77,10 +77,19 @@ io.on('connection', function(socket) {
   console.log('user connected');
 
   // receive message
-  socket.on('message', function(message: object | string) {
-    // add function to add message to db
-    const { message: text }: string | any = message;
-    sendMessage({ message: text, user: '5e419a51185b342e8c6b8756' });
+  socket.on('sent message', async function(message: object | string) {
+    try {
+      // add function to add message to db
+      const { message: text }: string | any = message;
+      const response: any = await sendMessage({
+        message: text,
+        user: '5e419a51185b342e8c6b8756',
+      });
+
+      socket.emit('saved message', response.data);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   socket.on('disconnect', function() {
