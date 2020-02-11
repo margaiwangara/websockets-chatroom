@@ -7,20 +7,27 @@
       </form>
     </section>
     <section class="work-area-center">
-      <div class="list-tile">
-        <div class="list-tile-top">
-          <h5>Name</h5>
-        </div>
-       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos delectus dolore mollitia totam nam. Hic!</p>
-        <h6>Date</h6>
-      </div>
+      {{#each chats }}
+          <div class="list-tile">
+            <div class="list-tile-top">
+              <h5>{{ ../user.username }}</h5>
+            </div>
+          <p>{{ message }}</p>
+            <h6>{{ createdAt }}</h6>
+          </div>
+      {{else }}
+        <p class="feedback">There are no chats to display</p>
+      {{/each }}
     </section>
     <section class="work-area-bottom">
-      <p style="color: teal; font-size: 12.5px;padding: 5px 10px;font-weight: 300;letter-spacing: 0.5px;" class="feedback"></p>
+      <p class="feedback"></p>
       <form method="post" autocomplete="off" id="message-form">
-        <input type="hidden" name="username" value={{ user.username }} id="username-field">
-        <input type="text" name="message" id="message-input" placeholder="Type Something..." autocomplete="off">
-        <button type="submit" class="btn" id="message-submit">+</button>
+        {{#with user }}
+          <input type="hidden" name="username" value={{ username }} id="username-field">
+          <input type="hidden" name="id" value={{ id }} id="id-field">
+        {{/with }}
+          <input type="text" name="message" id="message-input" placeholder="Type Something..." autocomplete="off">
+          <button type="submit" class="btn" id="message-submit">+</button>
       </form>
       <div class="error">
         <p>This is an error message</p>

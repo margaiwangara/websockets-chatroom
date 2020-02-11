@@ -3,7 +3,6 @@ var messageInput = document.getElementById('message-input');
 var errorBox = document.querySelector('.error');
 var username = document.getElementById('username-field');
 var feedback = document.querySelector('.feedback');
-
 // Socket.io Client
 var socket = io('http://localhost:5000/');
 
@@ -12,6 +11,7 @@ messageForm.addEventListener('submit', function(e) {
 
   // grab elements
   var message = e.target.elements.message.value;
+  var userId = e.target.elements.id.value;
   if (!message) {
     // display message in error message
     errorBox.innerHTML = 'Message input is required';
@@ -26,7 +26,7 @@ messageForm.addEventListener('submit', function(e) {
   }
 
   // else send message
-  socket.emit('sent message', { message: message });
+  socket.emit('sent message', { message: message, user: userId });
 
   socket.on('saved message', function(saved) {
     console.log(saved);
@@ -44,7 +44,6 @@ messageInput.addEventListener('keypress', function(e) {
 
 // display is typing
 socket.on('isTyping', function(res) {
-  console.log('someone is typing...');
   feedback.innerHTML = `${res} is typing...`;
 });
 // button.addEventListener('click', function(e) {

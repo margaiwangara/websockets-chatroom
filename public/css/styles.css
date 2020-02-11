@@ -92,8 +92,10 @@ main {
 .work-area-center {
   flex: 10;
   display: flex;
+  flex-direction: column;
   padding: 10px;
   box-sizing: border-box;
+  overflow-y: auto;
   align-items: flex-start;
 }
 
@@ -106,6 +108,7 @@ main {
   padding: 10px;
   box-sizing: border-box;
   line-height: 1.75;
+  margin-bottom: 10px;
 }
 
 .list-tile-top {
@@ -193,4 +196,12 @@ h3 {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   display: none;
+}
+
+.feedback {
+  color: grey;
+  font-size: 12.5px;
+  padding: 5px 10px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
 }

@@ -85,13 +85,13 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('isTyping', username);
   });
   // receive message
-  socket.on('sent message', async function(message: object | string) {
+  socket.on('sent message', async function(payload: object | string) {
     try {
       // add function to add message to db
-      const { message: text }: string | any = message;
+      const { message, user }: string | any = payload;
       const response: any = await sendMessage({
-        message: text,
-        user: '5e419a51185b342e8c6b8756',
+        message,
+        user,
       });
 
       socket.emit('saved message', response.data);
