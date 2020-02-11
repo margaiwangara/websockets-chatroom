@@ -13,6 +13,7 @@ import schema from './graphql/queries';
 import connectDB from './models';
 import authRoute from './routes/auth';
 import appRoute from './routes/app';
+import { sendMessage } from './controller/chat';
 
 // Inits
 const app: Application = express();
@@ -77,7 +78,9 @@ io.on('connection', function(socket) {
 
   // receive message
   socket.on('message', function(message: object | string) {
-    console.log(message);
+    // add function to add message to db
+    const { message: text }: string | any = message;
+    sendMessage({ message: text, user: '5e419a51185b342e8c6b8756' });
   });
 
   socket.on('disconnect', function() {
