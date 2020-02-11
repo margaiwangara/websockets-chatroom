@@ -4,7 +4,8 @@ html {
   --primaryDark: #023c40;
   --primaryLight: #ccceee;
   --white: #fefffe;
-  font-family: Arial, Helvetica, sans-serif;
+  --fontFamily: Montserrat, sans-serif;
+  font-family: var(--fontFamily);
   font-weight: 400;
   font-size: 1.2rem;
   color: var(--primaryDark);
@@ -80,7 +81,6 @@ main {
 .work-area-top {
   flex: 1;
   display: flex;
-  border-bottom: solid 1px pink;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
@@ -92,9 +92,37 @@ main {
 .work-area-center {
   flex: 10;
   display: flex;
-  border-bottom: solid 1px orange;
   padding: 10px;
   box-sizing: border-box;
+  align-items: flex-start;
+}
+
+.list-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgba(137, 230, 206, 0.35);
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  line-height: 1.75;
+}
+
+.list-tile-top {
+  display: flex;
+  align-items: center;
+}
+
+.list-tile h6 {
+  font-weight: 300;
+  letter-spacing: 0.55px;
+  color: grey;
+  font-size: 0.7rem;
+}
+
+.list-tile p {
+  font-size: 0.8rem;
+  font-weight: 300;
 }
 
 .work-area-bottom {
@@ -113,11 +141,18 @@ main {
   letter-spacing: 0.5px;
   border: none;
   border-bottom-left-radius: 10px;
+  font-family: var(--fontFamily);
 }
 
 .work-area-bottom form button {
   font-weight: 700;
   font-size: 1.5rem;
+  border-bottom-right-radius: 10px;
+}
+
+.work-area-bottom form button:hover {
+  background-color: var(--primaryDark);
+  color: var(--white);
 }
 
 .btn {
@@ -129,6 +164,7 @@ main {
   border: none;
   outline: transparent;
   cursor: pointer;
+  font-family: var(--fontFamily);
 }
 
 .btn-border {
@@ -139,4 +175,8 @@ main {
 .btn-border:hover {
   background: var(--primaryDark);
   color: var(--white);
+}
+
+h3 {
+  text-transform: uppercase;
 }

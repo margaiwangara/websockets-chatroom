@@ -1,12 +1,20 @@
 <section class="container">
   <section class="work-area">
     <section class="work-area-top">
-      <h3>Username</h3>
+      <h3>{{ user.username }}</h3>
       <form action="/logout" method="POST">
         <button type="submit" class="btn btn-border">Sign Out</button>
       </form>
     </section>
-    <section class="work-area-center">messages display</section>
+    <section class="work-area-center">
+      <div class="list-tile">
+        <div class="list-tile-top">
+          <h5>Name</h5>
+        </div>
+       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos delectus dolore mollitia totam nam. Hic!</p>
+        <h6>Date</h6>
+      </div>
+    </section>
     <section class="work-area-bottom">
       <form method="post" autocomplete="off">
         <input type="text" name="message" id="messageField" placeholder="Type Something..." autocomplete="off">
