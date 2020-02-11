@@ -62,7 +62,11 @@ app.use(
 
 function passSocket(req: Request, res: Response, next: NextFunction) {
   // add io to req
-  req.socket = io as any;
+  io.on('connection', function(socket) {
+    console.log('user connected');
+    req.socket = socket as any;
+  });
+
   return next();
 }
 
@@ -76,6 +80,10 @@ app.use('/', passSocket, appRoute);
 io.on('connection', function(socket) {
   console.log('user connected');
 
+  socket.on('typing', function(payload) {
+    const { username }: any = payload;
+    socket.broadcast.emit('isTyping', username);
+  });
   // receive message
   socket.on('sent message', async function(message: object | string) {
     try {
