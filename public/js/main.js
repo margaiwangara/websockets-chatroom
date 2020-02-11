@@ -5,14 +5,13 @@ var messageBox = document.querySelector('.top');
 // Socket.io Client
 var socket = io();
 
-function handleMessageSubmit(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    // clear input
-    e.target.value = '';
+var button = document.querySelector('.myButton');
 
-    return false;
-  }
-}
+if (!button) console.log('no button');
 
-messageInput.addEventListener('keydown', handleMessageSubmit);
+button.addEventListener('click', function(e) {
+  e.preventDefault();
+  alert('button clicked');
+  // emit socket
+  socket.emit('message', { message: 'This is a test message' });
+});

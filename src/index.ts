@@ -59,11 +59,31 @@ app.use(
   }),
 );
 
+function passSocket(req: Request, res: Response, next: NextFunction) {
+  // add io to req
+  req.socket = io as any;
+  return next();
+}
+
 // Routes
 const graphqlOptions = { graphiql: true, schema };
 app.use('/graphql', graphqlHTTP(graphqlOptions));
 app.use('/', authRoute);
-app.use('/', appRoute);
+app.use('/', passSocket, appRoute);
+
+// socket.io
+io.on('connection', function(socket) {
+  console.log('user connected');
+
+  // receive message
+  socket.on('message', function(message: object | string) {
+    console.log(message);
+  });
+
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
+  });
+});
 
 const PORT: number = parseInt(`${process.env.PORT}`, 10) || 5000;
 

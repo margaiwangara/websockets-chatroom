@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import chatSocket from '../handlers/chats';
 
 /**
  * @desc Display homepage
@@ -12,5 +13,6 @@ export const homePage = function(
 ) {
   // render homepage middlewaer will be placed during routing
   const { user }: object | any = req.session;
+
   return res.render('home', { title: 'Home', user });
 };
