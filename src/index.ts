@@ -10,7 +10,7 @@ import * as path from 'path';
 import * as exphbs from 'express-handlebars';
 import * as http from 'http';
 import schema from './graphql/queries';
-import connectDB from './models';
+import connectDB, { Chat } from './models';
 import authRoute from './routes/auth';
 import appRoute from './routes/app';
 import { sendMessage } from './controller/chat';
