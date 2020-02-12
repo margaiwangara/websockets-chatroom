@@ -86,9 +86,22 @@ socket.on('isTyping', function(res) {
 });
 
 // get messages socket
-socket.on('getMessages', function(messages) {
+socket.on('messages', function(messages = []) {
   // load data directly here
-  // centerArea.appendChild(createCard());
+  var myNode = [];
+  for (var i = 0; i < messages.chats.length; i++) {
+    myNode.push(
+      createCard(
+        messages.chats[i].user.id,
+        messages.chats[i].user.username,
+        messages.chats[i].message,
+        messages.chats[i].createdAt,
+      ),
+    );
+  }
+
+  // plug into display area
+  centerArea.prepend(...myNode);
 });
 // button.addEventListener('click', function(e) {
 //   e.preventDefault();

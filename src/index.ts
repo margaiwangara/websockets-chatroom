@@ -13,7 +13,7 @@ import schema from './graphql/queries';
 import connectDB, { Chat } from './models';
 import authRoute from './routes/auth';
 import appRoute from './routes/app';
-import { sendMessage } from './controller/chat';
+import { sendMessage, getMessages } from './controller/chat';
 import { forElse } from './utils/handlebars';
 
 // Inits
@@ -105,6 +105,11 @@ io.on('connection', function(socket) {
       console.log(error);
     }
   });
+
+  // get messages and emit to client
+  getMessages().then(({ data: { chats } }: object[] | any) =>
+    socket.emit('messages', { chats: chats }),
+  );
 
   socket.on('disconnect', function() {
     console.log('user disconnected');

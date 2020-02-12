@@ -24,3 +24,25 @@ export const sendMessage = async ({ message, user }: string | any) => {
     console.log(error);
   }
 };
+
+export const getMessages = async () => {
+  const query = `{
+    chats{
+      id
+      message
+      createdAt
+      user{
+        id
+        username
+      }
+    }
+  }`;
+
+  // run query
+  try {
+    const response = await graphql(schema, query);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
