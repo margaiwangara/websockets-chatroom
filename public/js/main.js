@@ -32,15 +32,14 @@ messageForm.addEventListener('submit', function(e) {
     var result = payload.createChat;
     var chat = {
       id: result.id,
-      message: result.message
+      message: result.message,
     };
     var user = {
       id: result.user.id,
-      username: result.user.username
+      username: result.user.username,
     };
 
     // display on message board
-    
   });
 
   // clear input
@@ -56,6 +55,11 @@ messageInput.addEventListener('keypress', function(e) {
 // display is typing
 socket.on('isTyping', function(res) {
   feedback.innerHTML = `${res} is typing...`;
+});
+
+// get messages socket
+socket.on('getMessages', function(messages) {
+  // load data directly here
 });
 // button.addEventListener('click', function(e) {
 //   e.preventDefault();
