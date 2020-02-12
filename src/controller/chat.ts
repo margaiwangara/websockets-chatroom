@@ -8,6 +8,7 @@ export const sendMessage = async ({ message, user }: string | any) => {
     createChat(message: "${message}", user: "${user}"){
       id
       message
+      createdAt
       user{
         id
         username

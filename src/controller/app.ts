@@ -20,7 +20,6 @@ export const homePage = asyncHandler(async function(
     .sort('-createdAt')
     .populate({ path: 'user', select: 'username _id' });
 
-  console.log(chats);
   return res.render('home', {
     title: 'Home',
     user,

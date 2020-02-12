@@ -10,13 +10,15 @@
       {{#each chats }}
           <div class="list-tile">
             {{#each this }}
-              <div class="list-tile-top">
-                {{#each user }}
-                  <h5>{{ username }}</h5>
-                {{/each }}
-              </div>
-              <p>{{ message }}</p>
-              <h6>{{ createdAt }}</h6>
+              {{#if this }}
+                <div class="list-tile-top">
+                  {{#each user }}
+                    <h5 data-id={{ _id }}>{{ username }}</h5>
+                  {{/each }}
+                </div>
+                <p>{{ message }}</p>
+                <h6>{{ createdAt }}</h6>
+              {{/if }}
             {{/each }}
           </div>
       {{/each }}

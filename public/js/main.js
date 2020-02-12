@@ -3,8 +3,32 @@ var messageInput = document.getElementById('message-input');
 var errorBox = document.querySelector('.error');
 var username = document.getElementById('username-field');
 var feedback = document.querySelector('.feedback');
+var centerArea = document.querySelector('.work-area-center');
+
 // Socket.io Client
 var socket = io('http://localhost:5000/');
+
+function createCard(id, name, message, date) {
+  var card = document.createElement('div');
+  card.setAttribute('class', 'list-tile');
+  var cardTop = document.createElement('div');
+  cardTop.setAttribute('class', 'list-tile-top');
+  var usernameArea = document.createElement('h5');
+  usernameArea.setAttribute('data-id', id);
+  usernameArea.innerHTML = name;
+  var messageArea = document.createElement('p');
+  messageArea.innerHTML = message;
+  var dateArea = document.createElement('h6');
+  dateArea.innerHTML = date;
+
+  cardTop.appendChild(usernameArea);
+  // append elements to card
+  card.append(cardTop, messageArea, dateArea);
+
+  return card;
+}
+
+// optimization moved to later
 
 messageForm.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -33,6 +57,7 @@ messageForm.addEventListener('submit', function(e) {
     var chat = {
       id: result.id,
       message: result.message,
+      date: result.createdAt,
     };
     var user = {
       id: result.user.id,
@@ -40,6 +65,9 @@ messageForm.addEventListener('submit', function(e) {
     };
 
     // display on message board
+    centerArea.prepend(
+      createCard(user.id, user.username, chat.message, chat.date),
+    );
   });
 
   // clear input
@@ -60,6 +88,7 @@ socket.on('isTyping', function(res) {
 // get messages socket
 socket.on('getMessages', function(messages) {
   // load data directly here
+  // centerArea.appendChild(createCard());
 });
 // button.addEventListener('click', function(e) {
 //   e.preventDefault();
