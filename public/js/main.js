@@ -68,6 +68,8 @@ messageForm.addEventListener('submit', function(e) {
     centerArea.prepend(
       createCard(user.id, user.username, chat.message, chat.date),
     );
+
+    feedback.innerHTML = '';
   });
 
   // clear input
@@ -77,7 +79,7 @@ messageForm.addEventListener('submit', function(e) {
 // message input
 messageInput.addEventListener('keypress', function(e) {
   if (e.key !== 'Enter') socket.emit('typing', { username: username.value });
-  else feedback.innerHTML = '';
+
 });
 
 // display is typing
